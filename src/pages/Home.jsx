@@ -21,8 +21,10 @@ import {
 } from "lucide-react";
 import logo from "../assets/The_Kalash_logo.png";
 import heroImage from "../assets/hero.jpg";
+import { FaFacebookF, FaInstagram } from "react-icons/fa";
 
 const ease = [0.22, 1, 0.36, 1];
+
 const nav = [
   ["Home", "#top"],
   ["Rooms", "#rooms"],
@@ -32,8 +34,10 @@ const nav = [
   ["About", "#about"],
   ["Contact", "#contact"],
 ];
+
 const image = (id, width = 1600) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=85`;
+
 const photos = {
   hero: image("photo-1601918774946-25832a4be0d6", 2200),
   lobby: image("photo-1566073771259-6a8506099945"),
@@ -47,6 +51,7 @@ const photos = {
   detail: image("photo-1600607687920-4e2a09cf159d"),
   exterior: image("photo-1542314831-068cd1dbfeeb", 2200),
 };
+
 function Reveal({ children, delay = 0, className = "" }) {
   return (
     <motion.div
@@ -60,6 +65,7 @@ function Reveal({ children, delay = 0, className = "" }) {
     </motion.div>
   );
 }
+
 function Picture({ src, alt, className = "", delay = 0 }) {
   return (
     <motion.div
@@ -82,6 +88,7 @@ function Picture({ src, alt, className = "", delay = 0 }) {
     </motion.div>
   );
 }
+
 function Button({ children, href = "#contact", light = false }) {
   return (
     <a
@@ -135,7 +142,7 @@ function Navbar() {
               <a
                 key={name}
                 href={href}
-                className={`text-[.62rem] uppercase tracking-[.14em] transition-colors duration-300 ${
+                className={`text-[.68rem] uppercase tracking-[.14em] transition-colors duration-300 ${
                   light ? "text-white" : "text-ink/75"
                 } hover:text-brass`}
               >
@@ -146,7 +153,7 @@ function Navbar() {
           <div className="flex items-center gap-3">
             <a
               href="#contact"
-              className={`hidden px-5 py-3 text-[.61rem] font-semibold uppercase tracking-[.16em] text-white transition-colors duration-300 lg:block ${
+              className={`hidden px-5 py-3 text-[.62rem] font-semibold uppercase tracking-[.16em] text-white transition-colors duration-300 lg:block ${
                 light
                   ? "border border-white/50 hover:border-brass hover:bg-brass"
                   : "bg-ink hover:bg-brass"
@@ -170,36 +177,71 @@ function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-ivory px-6 pt-28 xl:hidden"
+            transition={{ duration: 0.4, ease }}
+            className="fixed inset-0 z-40 flex flex-col bg-ivory px-6 pb-8 pt-28 sm:px-8 xl:hidden"
           >
-            <div className="border-t border-ink/10">
+            {/* Menu heading */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1, ease }}
+              className="mb-8"
+            >
+              <span className="eyebrow text-brass">Explore</span>
+            </motion.div>
+
+            {/* Navigation */}
+            <nav className="border-t border-ink/10">
               {nav.map(([name, href], i) => (
                 <motion.a
                   key={name}
                   href={href}
                   onClick={() => setOpen(false)}
-                  initial={{ opacity: 0, x: -16 }}
+                  initial={{ opacity: 0, x: -18 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.55, delay: 0.06 + i * 0.05, ease }}
-                  className="block border-b border-ink/10 py-4 font-display text-4xl"
+                  transition={{
+                    duration: 0.55,
+                    delay: 0.12 + i * 0.06,
+                    ease,
+                  }}
+                  className="group flex items-center justify-between border-b border-ink/10 py-5 font-display text-3xl text-ink transition-colors duration-300 hover:text-brass sm:text-4xl"
                 >
-                  {name}
+                  <span>{name}</span>
+
+                  <span className="text-sm text-ink/30 transition-colors duration-300 group-hover:text-brass">
+                    →
+                  </span>
                 </motion.a>
               ))}
-            </div>
-            <a
-              href="#contact"
-              onClick={() => setOpen(false)}
-              className="mt-8 block bg-ink py-4 text-center text-xs font-semibold uppercase tracking-[.18em] text-white"
+            </nav>
+
+            {/* Bottom CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5, ease }}
+              className="mt-auto"
             >
-              Enquire Now
-            </a>
+              <a
+                href="#contact"
+                onClick={() => setOpen(false)}
+                className="flex min-h-12 items-center justify-center bg-ink px-6 text-[.65rem] font-semibold uppercase tracking-[.18em] text-white transition-colors duration-300 hover:bg-brass"
+              >
+                Enquire Now
+              </a>
+
+              <div className="mt-6 flex items-center justify-between text-[.6rem] uppercase tracking-[.18em] text-ink/45">
+                <span>The Kalash</span>
+                <span>Hotel · Restaurant · Banquet</span>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
     </>
   );
 }
+
 function Hero() {
   const ref = useRef();
   const { scrollYProgress } = useScroll({
@@ -224,7 +266,7 @@ function Hero() {
         />
       </motion.div>
       <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(25,21,16,.88),rgba(25,21,16,.15)_58%,rgba(25,21,16,.46))]" />
-      <div className="relative mx-auto flex min-h-[max(100svh,45rem)] max-w-360 flex-col justify-end px-5 pb-20 pt-[calc(var(--navbar-height)+clamp(2rem,8svh,6rem))] sm:px-8 lg:px-12 lg:pb-24">
+      <div className="relative mx-auto flex min-h-[max(100svh,45rem)] max-w-360 flex-col justify-end px-5 pb-20 pt-[calc(var(--navbar-height)+1rem)] sm:px-8 lg:px-12 lg:pb-24">
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -233,9 +275,9 @@ function Hero() {
         >
           A Hotel · Restaurant · Banquet
         </motion.p>
-        <h1 className="display mt-5 text-[clamp(4.2rem,10vw,9.5rem)] text-white">
+        <h1 className="display mt-5 text-[clamp(3.5rem,8vw,7.5rem)] text-white">
           {["Stay.", "Dine.", "Celebrate."].map((word, i) => (
-            <span key={word} className="block overflow-hidden">
+            <span key={word} className="block overflow-hidden pb-[0.10em]">
               <motion.span
                 initial={{ y: "115%" }}
                 animate={{ y: 0 }}
@@ -281,6 +323,7 @@ function Hero() {
     </section>
   );
 }
+
 const rooms = [
   [
     "Deluxe Room",
@@ -301,6 +344,7 @@ const rooms = [
     ["Living room", "52 sq m", "Balcony", "Bath tub"],
   ],
 ];
+
 const facilities = [
   [Wifi, "High-speed Wi-Fi", "Complimentary throughout the property"],
   [CarFront, "Valet Parking", "Secure on-site arrival and departure"],
@@ -309,11 +353,13 @@ const facilities = [
   [Clock3, "24-hour Reception", "Thoughtful assistance, around the clock"],
   [Dumbbell, "Fitness Room", "A well-equipped space to recharge"],
 ];
+
 function Footer() {
   return (
     <footer className="bg-ink text-ivory">
       <div className="mx-auto max-w-360 px-5 py-16 sm:px-8 lg:px-12 lg:py-20">
         <div className="grid gap-12 md:grid-cols-3">
+          {/* Brand */}
           <div>
             <div className="flex items-center gap-3">
               <img
@@ -323,46 +369,109 @@ function Footer() {
               />
               <span className="font-display text-3xl">The Kalash</span>
             </div>
+
             <p className="mt-6 max-w-sm text-sm leading-6 text-ivory/65">
               A warm address for stays, dining, and celebrations made memorable
               through generous hospitality.
             </p>
-            <div className="mt-6 flex gap-5 text-[.62rem] font-semibold uppercase tracking-[.18em] text-ivory/65">
-              <a href="#">Instagram</a>
-              <a href="#">Facebook</a>
+
+            {/* Social Icons */}
+            <div className="mt-7 flex gap-5 text-ivory/60">
+              <a
+                href="#"
+                aria-label="Instagram"
+                className="transition-colors duration-300 hover:text-brass-soft"
+              >
+                <FaInstagram size={18} />
+              </a>
+
+              <a
+                href="#"
+                aria-label="Facebook"
+                className="transition-colors duration-300 hover:text-brass-soft"
+              >
+                <FaFacebookF size={18} />
+              </a>
             </div>
           </div>
+
+          {/* Explore */}
           <div>
             <p className="eyebrow text-brass-soft">Explore</p>
-            <div className="mt-5 grid grid-cols-2 gap-y-3 text-sm text-ivory/70">
+
+            <div className="mt-6 grid grid-cols-2 gap-y-3 text-sm">
               {nav.map(([name, href]) => (
-                <a key={name} href={href}>
+                <a
+                  key={name}
+                  href={href}
+                  className="text-ivory/70 transition-colors duration-300 hover:text-ivory"
+                >
                   {name}
                 </a>
               ))}
             </div>
           </div>
+
+          {/* Contact */}
           <div>
             <p className="eyebrow text-brass-soft">Contact</p>
-            <address className="mt-5 text-sm leading-6 not-italic text-ivory/70">
-              The Kalash
-              <br />
-              [Hotel Address]
-              <br />
-              [Phone Number]
-              <br />
-              [Email Address]
+
+            <address className="mt-6 text-sm leading-6 not-italic text-ivory/70">
+              <p>
+                The Kalash
+                <br />
+                Near Vietnam Temple, Kol Baba Road, New Taridih,
+                <br />
+                Bodhgaya, Gaya Ji, Bihar 824231
+              </p>
+
+              <p className="mt-3">
+                <a
+                  href="tel:+919876543210"
+                  className="transition-colors duration-300 hover:text-ivory"
+                >
+                  +91 9876543210
+                </a>
+                <br />
+                <a
+                  href="mailto:kalashbodhgaya@gmail.com"
+                  className="transition-colors duration-300 hover:text-ivory"
+                >
+                  kalashbodhgaya@gmail.com
+                </a>
+                <br />
+                <a
+                  href="mailto:thekalash@zohomail.in"
+                  className="transition-colors duration-300 hover:text-ivory"
+                >
+                  thekalash@zohomail.in
+                </a>
+              </p>
             </address>
           </div>
         </div>
-        <div className="mt-14 flex flex-col justify-between gap-4 border-t border-white/15 pt-6 text-xs text-ivory/45 sm:flex-row">
+
+        {/* Bottom */}
+        <div className="mt-14 flex flex-col justify-between gap-4 border-t border-white/15 pt-7 text-xs text-ivory/45 sm:flex-row sm:items-center">
           <span>
             © {new Date().getFullYear()} The Kalash. All rights reserved.
           </span>
-          <span className="flex gap-6">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Use</a>
-          </span>
+
+          {/* <div className="flex gap-6">
+            <a
+              href="#"
+              className="transition-colors duration-300 hover:text-ivory"
+            >
+              Privacy Policy
+            </a>
+
+            <a
+              href="#"
+              className="transition-colors duration-300 hover:text-ivory"
+            >
+              Terms of Use
+            </a>
+          </div> */}
         </div>
       </div>
     </footer>
@@ -723,9 +832,17 @@ export default function Home() {
             </Reveal>
             <dl className="mt-9 divide-y divide-ink/15 border-y border-ink/15">
               {[
-                [MapPin, "Address", "[Hotel Address]"],
-                [Phone, "Reservations", "[Phone Number]"],
-                [Mail, "Email", "[Email Address]"],
+                [
+                  MapPin,
+                  "Address",
+                  "Near Vietnam Temple, Kol Baba Road, New Taridih, Bodhgaya, Gaya Ji, Bihar 824231",
+                ],
+                [Phone, "Reservations", "+91 9876543210"],
+                [
+                  Mail,
+                  "Email",
+                  "kalashbodhgaya@gmail.com, thekalash@zohomail.in",
+                ],
                 [Clock3, "Reception", "Open 24 hours"],
               ].map(([Icon, label, value]) => (
                 <div className="flex gap-4 py-4" key={label}>
@@ -747,17 +864,18 @@ export default function Home() {
               <Button>Get Directions</Button>
             </div>
           </div>
-          <div className="flex min-h-85 items-center justify-center border border-ink/15 bg-ivory lg:min-h-full">
-            <div className="text-center">
-              <MapPin
-                size={26}
-                strokeWidth={1}
-                className="mx-auto text-brass"
-              />
-              <p className="mt-3 text-[.6rem] font-semibold uppercase tracking-[.2em] text-ink/50">
-                Google Maps placeholder
-              </p>
-            </div>
+          <div className="min-h-85 overflow-hidden border border-ink/15 lg:min-h-full">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.740706551389!2d84.97576017526492!3d24.70143867803355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f32cf4cd6e0921%3A0x773fe7990603920f!2sNandeshwari!5e0!3m2!1sen!2sin!4v1786865757318!5m2!1sen!2sin"
+              width="600"
+              height="450"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              className="h-full min-h-85 w-full"
+              title="The Kalash location on Google Maps"
+            />
           </div>
         </div>
       </section>
