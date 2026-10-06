@@ -132,7 +132,7 @@ function Navbar() {
               className="h-11 w-11 object-contain"
             />
             <span
-              className={`hidden font-display text-2xl sm:block ${light ? "text-white" : "text-ink"}`}
+              className={`block font-display text-2xl ${light ? "text-white" : "text-ink"}`}
             >
               The Kalash
             </span>
