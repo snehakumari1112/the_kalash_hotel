@@ -20,8 +20,6 @@ const address = (
 );
 
 export default function Footer({ variant = "standard" }) {
-  const showPlaceholders = variant === "contact" || variant === "gallery";
-
   return (
     <footer className="bg-ink text-ivory">
       <div className="mx-auto max-w-360 px-5 py-16 sm:px-8 lg:px-12 lg:py-20">
@@ -73,54 +71,35 @@ export default function Footer({ variant = "standard" }) {
           <div>
             <p className="eyebrow text-brass-soft">Contact</p>
             <address className="mt-6 text-sm leading-6 not-italic text-ivory/70">
-              {showPlaceholders ? (
-                <>
-                  {variant === "gallery" && (
-                    <>
-                      The Kalash
-                      <br />
-                    </>
-                  )}
-                  <p>[Hotel Address]</p>
-                  <p className="mt-3">
-                    [Phone Number]
-                    <br />
-                    [Email Address]
-                  </p>
-                </>
-              ) : (
-                <>
-                  The Kalash
-                  <br />
-                  {address}
-                  <p className="mt-3">
-                    <a
-                      href="tel:+919876543210"
-                      className="transition-colors duration-300 hover:text-ivory"
-                    >
-                      +91 9876543210
-                    </a>
+              The Kalash
+              <br />
+              {address}
+              <p className="mt-3">
+                <a
+                  href="tel:+919876543210"
+                  className="transition-colors duration-300 hover:text-ivory"
+                >
+                  +91 9876543210
+                </a>
+                <br />
+                <a
+                  href="mailto:kalashbodhgaya@gmail.com"
+                  className="transition-colors duration-300 hover:text-ivory"
+                >
+                  kalashbodhgaya@gmail.com
+                </a>
+                {variant === "home" && (
+                  <>
                     <br />
                     <a
-                      href="mailto:kalashbodhgaya@gmail.com"
+                      href="mailto:thekalash@zohomail.in"
                       className="transition-colors duration-300 hover:text-ivory"
                     >
-                      kalashbodhgaya@gmail.com
+                      thekalash@zohomail.in
                     </a>
-                    {variant === "home" && (
-                      <>
-                        <br />
-                        <a
-                          href="mailto:thekalash@zohomail.in"
-                          className="transition-colors duration-300 hover:text-ivory"
-                        >
-                          thekalash@zohomail.in
-                        </a>
-                      </>
-                    )}
-                  </p>
-                </>
-              )}
+                  </>
+                )}
+              </p>
             </address>
           </div>
         </div>

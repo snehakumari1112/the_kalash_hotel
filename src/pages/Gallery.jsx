@@ -7,32 +7,46 @@ import {
 import { ChevronRight } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import heroImage from "../assets/gallery/22.jpg";
+import reception from "../assets/gallery/reception.png";
+import gallery25 from "../assets/gallery/25.jpg";
+import gallery01 from "../assets/gallery/01.jpg";
+import gallery02 from "../assets/gallery/02.jpg";
+import gallery03 from "../assets/gallery/03.jpg";
+import gallery04 from "../assets/gallery/04.jpg";
+import gallery05 from "../assets/gallery/05.jpg";
+import gallery08 from "../assets/gallery/08.jpg";
+import gallery12 from "../assets/gallery/12.jpg";
+import gallery16 from "../assets/gallery/16.jpg";
+import gallery21 from "../assets/gallery/21.jpg";
+import gallery13 from "../assets/gallery/13.jpg";
+import gallery23 from "../assets/gallery/23.jpg";
+import gallery24 from "../assets/gallery/24.jpg";
+import gallery26 from "../assets/gallery/26.jpg";
 
 const ease = [0.22, 1, 0.36, 1];
-const image = (id, width = 1800) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=85`;
 
 const photos = {
-  hero: image("photo-1542314831-068cd1dbfeeb", 2200),
-  exterior: image("photo-1566073771259-6a8506099945", 1800),
-  lobby: image("photo-1564501049412-61c2a3083791", 1800),
-  common: image("photo-1600607687920-4e2a09cf159d", 1600),
-  ambience: image("photo-1582719478250-c89cae4dc85b", 1600),
-  room: image("photo-1590490360182-c33d57733427", 1800),
-  bed: image("photo-1566665797739-1674de7a421a", 1600),
-  bath: image("photo-1600566753190-17f0baa2a6c3", 1600),
-  detail: image("photo-1618773928121-c32242e63f39", 1600),
-  restaurant: image("photo-1517248135467-4c7edcad34c4", 1800),
-  food: image("photo-1547592180-85f173990554", 1600),
-  table: image("photo-1414235077428-338989a2e8c0", 1600),
-  dinner: image("photo-1550966871-3ed3cdb5ed0c", 1600),
-  hall: image("photo-1464366400600-7168b8af9bc3", 1800),
-  wedding: image("photo-1519741497674-611481863552", 1800),
-  event: image("photo-1519167758481-83f550bb49b3", 1600),
-  decor: image("photo-1519225421980-715cb0215aed", 1600),
-  experience: image("photo-1507504031003-b417219a0fde", 1800),
-  welcome: image("photo-1571896349842-33c89424de2d", 1600),
-  cta: image("photo-1601918774946-25832a4be0d6", 2200),
+  hero: heroImage,
+  exterior: gallery12,
+  lobby: gallery13,
+  common: gallery26,
+  ambience: gallery25,
+  room: gallery01,
+  bed: gallery02,
+  bath: gallery16,
+  detail: gallery08,
+  restaurant: gallery12,
+  food: gallery03,
+  table: gallery04,
+  dinner: gallery05,
+  hall: gallery24,
+  wedding: gallery26,
+  event: gallery23,
+  decor: gallery21,
+  experience: gallery25,
+  welcome: gallery12,
+  cta: gallery04,
 };
 
 function Reveal({ children, delay = 0, className = "" }) {

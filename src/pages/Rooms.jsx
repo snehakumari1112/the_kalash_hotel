@@ -12,13 +12,14 @@ import {
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import roomsHero from "../assets/rooms_hero.png";
 
 const ease = [0.22, 1, 0.36, 1];
 const image = (id, width = 1800) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=85`;
 
 const photos = {
-  hero: image("photo-1611892440504-42a792e24d32", 2200),
+  hero: roomsHero,
   intro: image("photo-1600607687939-ce8a6c25118c"),
   deluxe: image("photo-1590490360182-c33d57733427"),
   premium: image("photo-1566665797739-1674de7a421a"),

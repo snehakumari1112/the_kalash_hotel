@@ -3,15 +3,15 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronRight, Clock3, Mail, MapPin, Phone, Send } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import contactHero from "../assets/gallery/reception.png";
+import enquiryImage from "../assets/hero_kalash.png";
 
 const ease = [0.22, 1, 0.36, 1];
-const image = (id, width = 1600) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=85`;
 
 const photos = {
-  hero: image("photo-1542314831-068cd1dbfeeb", 2200),
-  enquiry: image("photo-1566073771259-6a8506099945", 1800),
-  cta: image("photo-1601918774946-25832a4be0d6", 2200),
+  hero: contactHero,
+  enquiry: enquiryImage,
+  cta: contactHero,
 };
 
 function Reveal({ children, delay = 0, className = "" }) {

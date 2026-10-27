@@ -17,20 +17,24 @@ import {
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import aboutHero from "../assets/gallery/15.jpg";
+import hotelImage from "../assets/hero_kalash.png";
+import cta from "../assets/gallery/12.jpg";
+import stay from "../assets/rooms_hero.png";
 
 const ease = [0.22, 1, 0.36, 1];
 const image = (id, width = 1600) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=85`;
 
 const photos = {
-  hero: image("photo-1542314831-068cd1dbfeeb", 2200),
-  story: image("photo-1564501049412-61c2a3083791", 1800),
-  philosophy: image("photo-1600607687920-4e2a09cf159d", 1600),
-  stay: image("photo-1590490360182-c33d57733427"),
+  hero: aboutHero,
+  story: hotelImage,
+  philosophy: cta,
+  stay,
   dining: image("photo-1517248135467-4c7edcad34c4"),
   events: image("photo-1519167758481-83f550bb49b3"),
   service: image("photo-1566073771259-6a8506099945"),
-  cta: image("photo-1601918774946-25832a4be0d6", 2200),
+  cta,
 };
 
 function Reveal({ children, delay = 0, className = "" }) {

@@ -16,7 +16,7 @@ import {
   Waves,
   Wifi,
 } from "lucide-react";
-import heroImage from "../assets/hero.jpg";
+import heroImage from "../assets/hero_kalash.png";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -26,7 +26,7 @@ const image = (id, width = 1600) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=85`;
 
 const photos = {
-  hero: image("photo-1601918774946-25832a4be0d6", 2200),
+  hero: heroImage,
   lobby: image("photo-1566073771259-6a8506099945"),
   deluxe: image("photo-1590490360182-c33d57733427"),
   premium: image("photo-1566665797739-1674de7a421a"),
