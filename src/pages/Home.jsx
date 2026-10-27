@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import {
-  AnimatePresence,
   motion,
   useScroll,
   useTransform,
@@ -12,28 +11,16 @@ import {
   Dumbbell,
   Mail,
   MapPin,
-  Menu,
   Phone,
   UtensilsCrossed,
   Waves,
   Wifi,
-  X,
 } from "lucide-react";
-import logo from "../assets/The_Kalash_logo.png";
 import heroImage from "../assets/hero.jpg";
-import { FaFacebookF, FaInstagram } from "react-icons/fa";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const ease = [0.22, 1, 0.36, 1];
-
-const nav = [
-  ["Home", "#top"],
-  ["Rooms", "#rooms"],
-  ["Restaurant", "#restaurant"],
-  ["Banquet", "#banquet"],
-  ["Gallery", "#gallery"],
-  ["About", "#about"],
-  ["Contact", "#contact"],
-];
 
 const image = (id, width = 1600) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=85`;
@@ -89,7 +76,7 @@ function Picture({ src, alt, className = "", delay = 0 }) {
   );
 }
 
-function Button({ children, href = "#contact", light = false }) {
+function Button({ children, href = "/contact", light = false }) {
   return (
     <a
       href={href}
@@ -98,147 +85,6 @@ function Button({ children, href = "#contact", light = false }) {
       {children}
       <ChevronRight size={15} strokeWidth={1.3} />
     </a>
-  );
-}
-
-function Navbar() {
-  const [open, setOpen] = useState(false),
-    [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const handler = () => setScrolled(scrollY > 35);
-    addEventListener("scroll", handler, { passive: true });
-    return () => removeEventListener("scroll", handler);
-  }, []);
-  useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
-  const light = !scrolled && !open;
-  return (
-    <>
-      <motion.header
-        initial={{ y: -35, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.9, delay: 0.15, ease }}
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? "border-b border-ink/10 bg-ivory/95 backdrop-blur-md" : ""}`}
-      >
-        <nav className="mx-auto flex min-h-19 max-w-360 items-center justify-between px-5 py-4 sm:px-8 lg:px-12">
-          <a href="#top" className="flex items-center gap-3">
-            <img
-              src={logo}
-              alt="The Kalash logo"
-              className="h-11 w-11 object-contain"
-            />
-            <span
-              className={`block font-display text-2xl ${light ? "text-white" : "text-ink"}`}
-            >
-              The Kalash
-            </span>
-          </a>
-          <div className="hidden items-center gap-6 xl:flex">
-            {nav.map(([name, href]) => (
-              <a
-                key={name}
-                href={href}
-                className={`text-[.68rem] uppercase tracking-[.14em] transition-colors duration-300 ${
-                  light ? "text-white" : "text-ink/75"
-                } hover:text-brass`}
-              >
-                {name}
-              </a>
-            ))}
-          </div>
-          <div className="flex items-center gap-3">
-            <a
-              href="#contact"
-              className={`hidden px-5 py-3 text-[.62rem] font-semibold uppercase tracking-[.16em] text-white transition-colors duration-300 lg:block ${
-                light
-                  ? "border border-white/50 hover:border-brass hover:bg-brass"
-                  : "bg-ink hover:bg-brass"
-              }`}
-            >
-              Enquire Now
-            </a>
-            <button
-              aria-label="Toggle menu"
-              onClick={() => setOpen(!open)}
-              className={`grid h-10 w-10 place-items-center xl:hidden ${light ? "text-white" : ""}`}
-            >
-              {open ? <X strokeWidth={1.4} /> : <Menu strokeWidth={1.4} />}
-            </button>
-          </div>
-        </nav>
-      </motion.header>
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4, ease }}
-            className="fixed inset-0 z-40 flex flex-col bg-ivory px-6 pb-8 pt-28 sm:px-8 xl:hidden"
-          >
-            {/* Menu heading */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1, ease }}
-              className="mb-8"
-            >
-              <span className="eyebrow text-brass">Explore</span>
-            </motion.div>
-
-            {/* Navigation */}
-            <nav className="border-t border-ink/10">
-              {nav.map(([name, href], i) => (
-                <motion.a
-                  key={name}
-                  href={href}
-                  onClick={() => setOpen(false)}
-                  initial={{ opacity: 0, x: -18 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    duration: 0.55,
-                    delay: 0.12 + i * 0.06,
-                    ease,
-                  }}
-                  className="group flex items-center justify-between border-b border-ink/10 py-5 font-display text-3xl text-ink transition-colors duration-300 hover:text-brass sm:text-4xl"
-                >
-                  <span>{name}</span>
-
-                  <span className="text-sm text-ink/30 transition-colors duration-300 group-hover:text-brass">
-                    →
-                  </span>
-                </motion.a>
-              ))}
-            </nav>
-
-            {/* Bottom CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5, ease }}
-              className="mt-auto"
-            >
-              <a
-                href="#contact"
-                onClick={() => setOpen(false)}
-                className="flex min-h-12 items-center justify-center bg-ink px-6 text-[.65rem] font-semibold uppercase tracking-[.18em] text-white transition-colors duration-300 hover:bg-brass"
-              >
-                Enquire Now
-              </a>
-
-              <div className="mt-6 flex items-center justify-between text-[.6rem] uppercase tracking-[.18em] text-ink/45">
-                <span>The Kalash</span>
-                <span>Hotel · Restaurant · Banquet</span>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
   );
 }
 
@@ -305,14 +151,14 @@ function Hero() {
           className="mt-9 flex flex-col gap-3 sm:flex-row"
         >
           <a
-            href="#rooms"
+            href="/rooms"
             className="inline-flex min-h-12 items-center justify-center gap-2 bg-ivory px-6 text-[.66rem] font-semibold uppercase tracking-[.18em] text-ink transition-colors duration-300 hover:bg-brass hover:text-white"
           >
             Explore Rooms
             <ChevronRight size={15} strokeWidth={1.3} />
           </a>
           <a
-            href="#banquet"
+            href="/banquet"
             className="inline-flex min-h-12 items-center justify-center gap-2 border border-white/50 px-6 text-[.66rem] font-semibold uppercase tracking-[.18em] text-white transition-colors duration-300 hover:border-brass hover:bg-brass"
           >
             Plan Your Event
@@ -354,130 +200,6 @@ const facilities = [
   [Dumbbell, "Fitness Room", "A well-equipped space to recharge"],
 ];
 
-function Footer() {
-  return (
-    <footer className="bg-ink text-ivory">
-      <div className="mx-auto max-w-360 px-5 py-16 sm:px-8 lg:px-12 lg:py-20">
-        <div className="grid gap-12 md:grid-cols-3">
-          {/* Brand */}
-          <div>
-            <div className="flex items-center gap-3">
-              <img
-                src={logo}
-                alt="The Kalash logo"
-                className="h-14 w-14 object-contain"
-              />
-              <span className="font-display text-3xl">The Kalash</span>
-            </div>
-
-            <p className="mt-6 max-w-sm text-sm leading-6 text-ivory/65">
-              A warm address for stays, dining, and celebrations made memorable
-              through generous hospitality.
-            </p>
-
-            {/* Social Icons */}
-            <div className="mt-7 flex gap-5 text-ivory/60">
-              <a
-                href="#"
-                aria-label="Instagram"
-                className="transition-colors duration-300 hover:text-brass-soft"
-              >
-                <FaInstagram size={18} />
-              </a>
-
-              <a
-                href="#"
-                aria-label="Facebook"
-                className="transition-colors duration-300 hover:text-brass-soft"
-              >
-                <FaFacebookF size={18} />
-              </a>
-            </div>
-          </div>
-
-          {/* Explore */}
-          <div>
-            <p className="eyebrow text-brass-soft">Explore</p>
-
-            <div className="mt-6 grid grid-cols-2 gap-y-3 text-sm">
-              {nav.map(([name, href]) => (
-                <a
-                  key={name}
-                  href={href}
-                  className="text-ivory/70 transition-colors duration-300 hover:text-ivory"
-                >
-                  {name}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <p className="eyebrow text-brass-soft">Contact</p>
-
-            <address className="mt-6 text-sm leading-6 not-italic text-ivory/70">
-              <p>
-                The Kalash
-                <br />
-                Near Vietnam Temple, Kol Baba Road, New Taridih,
-                <br />
-                Bodhgaya, Gaya Ji, Bihar 824231
-              </p>
-
-              <p className="mt-3">
-                <a
-                  href="tel:+919876543210"
-                  className="transition-colors duration-300 hover:text-ivory"
-                >
-                  +91 9876543210
-                </a>
-                <br />
-                <a
-                  href="mailto:kalashbodhgaya@gmail.com"
-                  className="transition-colors duration-300 hover:text-ivory"
-                >
-                  kalashbodhgaya@gmail.com
-                </a>
-                <br />
-                <a
-                  href="mailto:thekalash@zohomail.in"
-                  className="transition-colors duration-300 hover:text-ivory"
-                >
-                  thekalash@zohomail.in
-                </a>
-              </p>
-            </address>
-          </div>
-        </div>
-
-        {/* Bottom */}
-        <div className="mt-14 flex flex-col justify-between gap-4 border-t border-white/15 pt-7 text-xs text-ivory/45 sm:flex-row sm:items-center">
-          <span>
-            © {new Date().getFullYear()} The Kalash. All rights reserved.
-          </span>
-
-          {/* <div className="flex gap-6">
-            <a
-              href="#"
-              className="transition-colors duration-300 hover:text-ivory"
-            >
-              Privacy Policy
-            </a>
-
-            <a
-              href="#"
-              className="transition-colors duration-300 hover:text-ivory"
-            >
-              Terms of Use
-            </a>
-          </div> */}
-        </div>
-      </div>
-    </footer>
-  );
-}
-
 export default function Home() {
   return (
     <main>
@@ -518,7 +240,7 @@ export default function Home() {
               </p>
             </Reveal>
             <Reveal delay={0.32}>
-              <a href="#gallery" className="rule-link mt-9">
+              <a href="/about" className="rule-link mt-9">
                 Discover Our Story <ChevronRight size={15} />
               </a>
             </Reveal>
@@ -544,7 +266,7 @@ export default function Home() {
                 </p>
               </Reveal>
             </div>
-            <a href="#contact" className="rule-link">
+            <a href="/rooms" className="rule-link">
               Explore Rooms <ChevronRight size={15} />
             </a>
           </div>
@@ -628,7 +350,7 @@ export default function Home() {
                 </div>
               ))}
             </dl>
-            <a href="#contact" className="rule-link mt-8">
+            <a href="/restaurant" className="rule-link mt-8">
               Explore Restaurant <ChevronRight size={15} />
             </a>
           </div>
@@ -693,7 +415,7 @@ export default function Home() {
                 and a hospitality team that ensures the day unfolds with ease.
               </p>
               <div className="mt-8">
-                <Button light>Plan Your Event</Button>
+                <Button href="/banquet" light>Plan Your Event</Button>
               </div>
             </div>
           </div>
@@ -742,7 +464,7 @@ export default function Home() {
                 </h2>
               </Reveal>
             </div>
-            <a href="#contact" className="rule-link">
+            <a href="/gallery" className="rule-link">
               View Gallery <ChevronRight size={15} />
             </a>
           </div>
@@ -861,7 +583,7 @@ export default function Home() {
               ))}
             </dl>
             <div className="mt-8">
-              <Button>Get Directions</Button>
+              <Button>Contact Us</Button>
             </div>
           </div>
           <div className="min-h-85 overflow-hidden border border-ink/15 lg:min-h-full">
@@ -911,7 +633,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <Footer />
+      <Footer variant="home" />
     </main>
   );
 }
